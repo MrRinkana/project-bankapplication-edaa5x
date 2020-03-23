@@ -1,17 +1,18 @@
+import java.math.BigInteger;
 import java.time.Instant;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class UniqueIDGen {
 
 	/*
-	 * Genererar en long utifrån Time Instant som ska anändas som unikt id för användaren. 
+	 * Genererar en BigInteger utifrån Time Instant som ska anändas som unikt id för användaren. 
 	 * lägger till type (byte, xxx) samt ett slumptal yyy på slutet för extra unikhet. 
 	 * type representerar vad för typ av objekt id tillhör, tex customer = 001 
 	 * type är alltid siffrorna 24 - 27. 
 	 * slumptalet är alltid de sista tre sifforna (28 - 31).
 	 * Om negativt type anges, omvandlas det till motsvarande positiva tal.
 	 */
-	public static double generator(byte type) {
+	public static BigInteger generator(byte type) {
 		Instant timeWas = Instant.now();
 
 		// Tar bort onödiga karaktärer
@@ -32,10 +33,10 @@ public class UniqueIDGen {
 			typeStr = "" + type; // java löser inte to string själv
 		}
 
-		// Nanosekunder fungarar inte på alla datorer
+		// Nanosekunder fungarar inte på alla datorer. nanosekunderna blir då 000
 		tmp += timeWas.getNano() + typeStr + ThreadLocalRandom.current().nextInt(100, 1000);
 
-		return Double.valueOf(tmp);
+		return new BigInteger(tmp);
 	}
 
 	/*
