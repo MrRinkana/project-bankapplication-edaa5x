@@ -11,7 +11,7 @@ public class Customer {
 	 * Eftersom denna klass inte har och ej bör ha tillgång till andra objekt av samma typ
 	 * så kan ett sådant id endast genereras utanför i en annan klass som har rätt att räkna
 	 * objekt eller håller koll på senast skapade konto-nummret. Tycker ett sådant system 
-	 * är lite fult.
+	 * är lite fult. Min lösning är även thread-safe ;)
 	 * 
 	 * Måste custNbr vara ev typen long som i ledningen så är det bara att byta till
 	 * longGenerator i UniqueIDGen
