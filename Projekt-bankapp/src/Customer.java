@@ -12,7 +12,7 @@ public class Customer {
 	public Customer(String name, long idNr) {
 		this.name = name;
 		this.idNr = idNr;
-		this.custNbr = 666;
+		this.custNbr = 666;//Bank.giveUserID();
 	}
 
 	/*
