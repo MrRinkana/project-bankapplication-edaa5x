@@ -25,5 +25,7 @@ public class Bank {
 	
 	boolean removeAccount(int number) {
 		//detta är inkompatibelt med att använda index som kontonummer, måste hitta annan lösning.
+		//Man skulle kunna söka igenom alla saker i listan till man hittar det som ska bort med en sån där halvhalvhalv metod
+		
 		}
 }
