@@ -4,6 +4,7 @@ public class tmp {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Hej!");
+		System.out.println("becky lemme push");
 	}
 
 }
