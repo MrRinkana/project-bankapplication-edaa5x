@@ -8,7 +8,6 @@ public class test {
 		System.out.println(tp.getName());
 		System.out.println(tp.getIdNr());
 		System.out.println(tp.getCustomerNr());
-		System.out.println(tp.getCustomerNrAsString());
 		
 	}
 
