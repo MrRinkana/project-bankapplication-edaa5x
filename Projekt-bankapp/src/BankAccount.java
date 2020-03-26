@@ -10,6 +10,7 @@ public class BankAccount {
 	
 	public BankAccount(Customer holder) {
 		this.holder = holder;
+		cashMoney = 0;
 	}
 	
 	public Customer getHolder() {
