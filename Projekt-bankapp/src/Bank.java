@@ -9,8 +9,13 @@ public class Bank {
 	}
 	
 	public int addAccount(String holderName, long idNr) {
-		//TODO: söka igenom så att man inte får redundant account
-		BankAccount account = new BankAccount(holderName, idNr);
+		BankAccount account;
+		if (findHolder(idNr) == null) {
+			account = new BankAccount(holderName, idNr);
+		}else {
+			account = new BankAccount(findHolder(idNr));
+		}
+		
 		accountList.add(account);
 		return(account.getAccountNbr());
 	}
