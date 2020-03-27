@@ -33,7 +33,7 @@ public class UniqueIDGen {
 			typeStr = "" + type; // java löser inte to string själv
 		}
 
-		// Nanosekunder fungarar inte på alla datorer. nanosekunderna blir då 000
+		// Nanosekunder fungarar inte på alla datorer -> nanosekunderna blir då 000
 		tmp += timeWas.getNano() + typeStr + ThreadLocalRandom.current().nextInt(100, 1000);
 
 		return new BigInteger(tmp);
