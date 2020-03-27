@@ -37,7 +37,27 @@ public class Bank {
 	}
 	
 	public ArrayList<BankAccount> getAllAccounts() {
-		return accountList;
+		ArrayList<BankAccount> unsorted = new ArrayList<BankAccount>(accountList); //för att inte paja accountList (tror -m)
+		ArrayList<BankAccount> sorted = new ArrayList<BankAccount>();
+		
+		while (unsorted.size() > 0) {
+			int index = 0;
+			for (int i = 0; i < unsorted.size()-1; i++) {
+				int diff = unsorted.get(i).getHolder().getName().compareTo(unsorted.get(i+1).getHolder().getName());
+				if (diff > 0) {
+					index = i+1;
+				}else if (diff == 0) {
+					if (unsorted.get(i).getAccountNbr() > unsorted.get(i+1).getAccountNbr()) {
+						index = i+1;
+					}
+				}
+				
+			}
+			sorted.add(unsorted.get(index));
+			unsorted.remove(index);
+		}
+		
+		return sorted;
 	}
 	
 	public BankAccount findByNumber(int accountNumber) {
