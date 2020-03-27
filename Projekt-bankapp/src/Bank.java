@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Bank {
 	ArrayList<BankAccount> accountList;
 	ArrayList<Customer> listOfCustomers; //Tror detta underlättar, alltså att bankaccount bara får pekare till objekt i denna
-	UniqueINT uniqID = new UniqueINT();
 	
 	public Bank() {
 		accountList = new ArrayList<BankAccount>();
@@ -13,7 +12,7 @@ public class Bank {
 		//TODO: söka igenom så att man inte får redundant account
 		BankAccount account = new BankAccount(holderName, idNr);
 		accountList.add(account);
-		return(account.getAccountNumber);
+		return(account.getAccountNbr());
 	}
 	
 	public Customer findHolder(long idNr) {
@@ -49,7 +48,7 @@ public class Bank {
 	
 	public boolean removeAccount(int number) {
 		for (BankAccount a : accountList) {
-			if (a.getAccountNumber == number) {
+			if (a.getAccountNbr() == number) {
 				accountList.remove(a);
 				return true;
 			}
@@ -64,7 +63,7 @@ public class Bank {
 	
 	public BankAccount findByNumber(int accountNumber) {
 		for (BankAccount a : accountList) {
-			if (a.getAccountNumber) {
+			if (a.getAccountNbr() == accountNumber) {
 				return a;
 			}
 		}
