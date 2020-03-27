@@ -12,7 +12,7 @@ public class Customer {
 	public Customer(String name, long idNr) {
 		this.name = name;
 		this.idNr = idNr;
-		this.custNbr = 666;//Bank.giveUserID();
+		this.custNbr = 666;//Bank.giveUserID();  //Kan bank vara static, alltså det kommer vid ett visst tilfälle bara finnas en bank?
 	}
 
 	/*
