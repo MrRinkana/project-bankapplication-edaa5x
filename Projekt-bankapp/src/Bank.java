@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Bank {
 	ArrayList<BankAccount> accountList;
-	ArrayList<Customer> listOfCustomers; //Tror detta underlättar, alltså att bankaccount bara får pekare till objekt i denna
+	//ArrayList<Customer> listOfCustomers; //Tror detta underlättar, alltså att bankaccount bara får pekare till objekt i denna
 	
 	public Bank() {
 		accountList = new ArrayList<BankAccount>();
@@ -32,8 +32,7 @@ public class Bank {
 				return true;
 			}
 		}
-		return false;
-		//Man skulle kunna söka igenom alla saker i listan till man hittar det som ska bort med en sån där halvhalvhalv metod	
+		return false;	
 	}
 	
 	public ArrayList<BankAccount> getAllAccounts() {
@@ -79,6 +78,8 @@ public class Bank {
 		}
 		return returnList;
 	}
+	
+	//TODO söka igenom så att man inte får dubbla resultat
 	public ArrayList<Customer> findByPartofName(String namePart) {
 		ArrayList<Customer> returnList = new ArrayList<Customer>();
 		for (BankAccount a : accountList) {
