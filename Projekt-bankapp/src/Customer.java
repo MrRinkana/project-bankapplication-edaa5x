@@ -4,6 +4,7 @@ public class Customer {
 	private String name;
 	private long idNr;
 	private int custNbr;
+	static int totalCustomers = 0;
 	
 
 	/*
@@ -12,7 +13,8 @@ public class Customer {
 	public Customer(String name, long idNr) {
 		this.name = name;
 		this.idNr = idNr;
-		this.custNbr = 666;//Bank.giveUserID();
+		totalCustomers++;
+		this.custNbr = totalCustomers;
 	}
 
 	/*
@@ -39,7 +41,7 @@ public class Customer {
 	}
 	
 	/*
-	 * Svarar med kundens unika ID
+	 * Svarar med kundens unika (interna) nummer
 	 */
 	public int getCustomerNr() {
 		return custNbr;
