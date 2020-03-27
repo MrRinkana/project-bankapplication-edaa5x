@@ -26,6 +26,8 @@ public class BankApplication {
 			case "3":
 				System.out.print("konto: ");
 				BankAccount account = bank.findByNumber(scan.nextInt());
+				System.out.println("belopp: ");
+				System.out.println(depositAttempt(account, scan.nextDouble()) + "\n");
 				System.out.print("belopp: ");
 				System.out.print(depositAttempt(account, scan.nextDouble())); //TODO utskriften är inte nanocertifierad
 				scan.nextLine();
@@ -33,6 +35,8 @@ public class BankApplication {
 			case "4":
 				System.out.print("konto: ");
 				BankAccount accountWithdraw = bank.findByNumber(scan.nextInt());
+				System.out.println("belopp: ");
+				System.out.println(withdrawalAttempt(accountWithdraw, scan.nextDouble()) + "\n");
 				System.out.print("belopp: ");
 				System.out.print(withdrawalAttempt(accountWithdraw, scan.nextDouble())); //TODO utskriften är inte nanocertifierad
 				scan.nextLine();
@@ -42,6 +46,8 @@ public class BankApplication {
 				BankAccount aOut = bank.findByNumber(scan.nextInt());
 				System.out.print("till konto: ");
 				BankAccount aIn = bank.findByNumber(scan.nextInt());
+				System.out.println("belopp: ");
+				System.out.println(transactionAttempt(aOut, aIn, scan.nextDouble()) + "\n");
 				System.out.print("belopp: ");
 				System.out.print(transactionAttempt(aOut, aIn, scan.nextDouble()));
 				scan.nextLine();
@@ -53,16 +59,17 @@ public class BankApplication {
 				long id = scan.nextLong();
 				int accountCheck = bank.addAccount(name, id);
 				if (!(accountCheck == 0)) {
-					System.out.print("Konto skapat: " + accountCheck);
+					System.out.print("Konto skapat: " + accountCheck + "\n");
 				} else {
-					System.out.print("Inget konto skapat");
+					System.out.print("Inget konto skapat" + "\n");
 				}
 				scan.nextLine();
 				break;
 			case "7":
 				if(!bank.removeAccount(scan.nextInt())) {
-					System.out.print("kontot existerar inte");
-				}else System.out.print("Kontot borttaget.");
+					System.out.println("kontot existerar inte" + "\n");
+				}
+				else System.out.print("Kontot borttaget.");
 				scan.nextLine();
 				break;
 			case "8":
@@ -101,6 +108,9 @@ public class BankApplication {
 	}
 
 	private static void printAccountList(ArrayList<BankAccount> accountList) {
+		for (BankAccount b : accountList) {
+			System.out.print("\n" + b.toString() + "\n");
+		}
 		if (accountList.size() > 0) {
 			System.out.print("Hittade:");
 			for (BankAccount b : accountList) {
@@ -110,6 +120,10 @@ public class BankApplication {
 	}
 
 	private static void printCustomerList(ArrayList<Customer> customerList) {
+		for (Customer c : customerList) {
+			System.out.print("\n" + c.toString() + "\n");
+		}
+
 		if (customerList.size() > 0) {
 			System.out.print("Hittade:");
 			for (Customer c : customerList) {
