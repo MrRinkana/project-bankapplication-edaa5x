@@ -1,20 +1,20 @@
 
 public class BankAccount {
 	private Customer holder;
-	private double cashMoney;
+	private double cash;
 	private int accNbr;
 	public int totAccounts = 0;
 	
 	public BankAccount(String holderName, long holderId) {
 		this.holder = new Customer(holderName, holderId);
-		cashMoney = 0;
+		cash = 0;
 		totAccounts++;
 		accNbr = totAccounts;
 	}
 	
 	public BankAccount(Customer holder) {
 		this.holder = holder;
-		cashMoney = 0;
+		cash = 0;
 		totAccounts++;
 		accNbr = totAccounts;
 	}
@@ -25,14 +25,14 @@ public class BankAccount {
 	}
 	
 	public double getAmount() {
-		return cashMoney;
+		return cash;
 	}
 	
 	void deposit(double amount) {
-		cashMoney += amount;
+		cash += amount;
 	}
 	void withdraw(double amount) {
-		cashMoney -= amount;
+		cash -= amount;
 	}
 	
 	/*
