@@ -23,28 +23,7 @@ public class Bank {
 		}
 		return null;
 	}
-	
-	/*
-	 * Dessa två funkar inte då de måste vara static, annars måste customer och 
-	 * bankaccount ha ett bank objekt, och det går ju inte. Skulle vilja bara skicka in deet genom construktooorn!
-	 * -m
-	 */
-	
-	
-	/*
-	 * Används av Customer för unikt användarnummer
-	 */
-	public int giveUserID() {
-		return uniqID.uniqueIntC(listOfCustomers);
-	}
-	
-	/*
-	 * Används av BankAccount för unikt kontonummer
-	 */
-	public int giveAccountID() {
-		return uniqID.uniqueIntB(accountList);
-	}
-	
+
 	
 	public boolean removeAccount(int number) {
 		for (BankAccount a : accountList) {
@@ -67,6 +46,7 @@ public class Bank {
 				return a;
 			}
 		}
+		return null;
 		
 	}
 	
