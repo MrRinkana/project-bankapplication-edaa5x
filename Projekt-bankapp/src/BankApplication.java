@@ -15,32 +15,36 @@ public class BankApplication {
 			String input = scan.nextLine();
 			switch (input) {
 			case "1":
-				System.out.println("id: ");
-				printAccountList(bank.findAccountsForHolder(scan.nextLong()));
+				System.out.print("id: ");
+				printAccountList(bank.findAccountsForHolder(scan.nextLong())); //TODO utskriften är inte nanocertifierad
+				scan.nextLine();
 				break;
 			case "2":
-				System.out.println("namn: ");
+				System.out.print("namn: ");
 				printCustomerList(bank.findByPartofName(scan.nextLine()));
 				break;
 			case "3":
-				System.out.println("konto: ");
+				System.out.print("konto: ");
 				BankAccount account = bank.findByNumber(scan.nextInt());
-				System.out.println("belopp: ");
-				System.out.println(depositAttempt(account, scan.nextDouble()));
+				System.out.print("belopp: ");
+				System.out.print(depositAttempt(account, scan.nextDouble())); //TODO utskriften är inte nanocertifierad
+				scan.nextLine();
 				break;
 			case "4":
-				System.out.println("konto: ");
+				System.out.print("konto: ");
 				BankAccount accountWithdraw = bank.findByNumber(scan.nextInt());
-				System.out.println("belopp: ");
-				System.out.println(withdrawalAttempt(accountWithdraw, scan.nextDouble()));
+				System.out.print("belopp: ");
+				System.out.print(withdrawalAttempt(accountWithdraw, scan.nextDouble())); //TODO utskriften är inte nanocertifierad
+				scan.nextLine();
 				break;
 			case "5":
-				System.out.println("från konto: ");
+				System.out.print("från konto: ");
 				BankAccount aOut = bank.findByNumber(scan.nextInt());
-				System.out.println("till konto: ");
+				System.out.print("till konto: ");
 				BankAccount aIn = bank.findByNumber(scan.nextInt());
-				System.out.println("belopp: ");
-				System.out.println(transactionAttempt(aOut, aIn, scan.nextDouble()));
+				System.out.print("belopp: ");
+				System.out.print(transactionAttempt(aOut, aIn, scan.nextDouble()));
+				scan.nextLine();
 				break;
 			case "6":
 				System.out.print("Skapa nytt konto:\nNamn:");
@@ -53,27 +57,36 @@ public class BankApplication {
 				} else {
 					System.out.print("Inget konto skapat");
 				}
+				scan.nextLine();
 				break;
 			case "7":
 				if(!bank.removeAccount(scan.nextInt())) {
-					System.out.println("kontot existerar inte");
-				}
+					System.out.print("kontot existerar inte");
+				}else System.out.print("Kontot borttaget.");
+				scan.nextLine();
 				break;
 			case "8":
 				printAccountList(bank.getAllAccounts());
+				//scan.nextLine(); //Ska tydligen inte vara här?
 				break;
 			case "9":
+				System.out.println("Shutting down..");
+				//TODO spara till fil (om inte sparas under programmets gång
+				scan.close(); //Den gnällde...
+				System.out.print("Shut down.");
 				System.exit(0);
 				break;
-			default:
-			}
+			default: 
+				System.out.print("Felaktig input, försök igen.");
+			} 
+
 
 		}
 
 	}
 	
 	private static void optionsPrint() {
-		System.out.print("- - - - - - - - - - - - - - - - - -" + 
+		System.out.print("\n- - - - - - - - - - - - - - - - - -" + 
 				" - - - - - - - - - - - - - - - - - - - - - - - - - -\n" +
 				"1. Hitta konto utifrån innehavare\n" + 
 				"2. Sök kontoinnehavare utifrån (del av) namn\n" + 
@@ -88,15 +101,21 @@ public class BankApplication {
 	}
 
 	private static void printAccountList(ArrayList<BankAccount> accountList) {
-		for (BankAccount b : accountList) {
-			System.out.print("\n" + b.toString());
-		}
+		if (accountList.size() > 0) {
+			System.out.print("Hittade:");
+			for (BankAccount b : accountList) {
+				System.out.print("\n" + b.toString());
+			}
+		}else System.out.print("Hittade inget.");
 	}
 
 	private static void printCustomerList(ArrayList<Customer> customerList) {
-		for (Customer c : customerList) {
-			System.out.print("\n" + c.toString());
-		}
+		if (customerList.size() > 0) {
+			System.out.print("Hittade:");
+			for (Customer c : customerList) {
+				System.out.print("\n" + c.toString());
+			}
+		}else System.out.print("Hittade ingen.");
 	}
 
 	private static String withdrawalAttempt(BankAccount account, double amount) {
