@@ -40,7 +40,7 @@ public class BankAccount {
 	}
 	
 	/** Sätter in beloppet ’amount’ på kontot. */
-	void deposit(double amount) {
+	public void deposit(double amount) { //TODO diskutara "public", verkade funka utan (saknades), mer restriktivt = bättre?
 		cash += amount;
 	}
 	
@@ -48,7 +48,7 @@ public class BankAccount {
 	* Tar ut beloppet ’amount’ från kontot. Om kontot saknar täckning
 	* blir saldot negativt.
 	*/
-	void withdraw(double amount) {
+	public void withdraw(double amount) {
 		cash -= amount;
 	}
 	
