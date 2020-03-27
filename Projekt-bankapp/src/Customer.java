@@ -4,7 +4,8 @@ public class Customer {
 	private String name;
 	private long idNr;
 	private int custNbr;
-	static int totalCustomers = 0;
+	
+	static int totalCustomers = 0; //Denna används för att skapa kundnummer
 	
 
 	/*
@@ -19,11 +20,16 @@ public class Customer {
 
 	/*
 	 * Laddar in en befintlig användare. (för framtida inläsning från fil tänkte jag)
+	 * Alla befintliga användare MÅSTE läsas in innan nya skapas.
 	 */
 	public Customer(String name, long idNr, int custNbr) {
 		this.name = name;
 		this.idNr = idNr;
 		this.custNbr = custNbr;
+		
+		//återuppbygg totalCustomers efter inläsning från fil
+		//antar att alla konton läses in innan nya skapas, annars risk för dubbla custNbr
+		if (custNbr > totalCustomers) totalCustomers = custNbr;
 	}
 	
 	/*
@@ -51,7 +57,7 @@ public class Customer {
 	 * Svarar med en strängbeskrivning av kunden.
 	 */
 	public String toString() {
-		return "Namn: " + name + " | Personnummer: " + idNr; //Osäker på formatet, hittar inte i uppgiften.
+		return name + ", id " + idNr + ", kundnr " + custNbr; //Samma format som i uppgiften
 	}
 
 }
