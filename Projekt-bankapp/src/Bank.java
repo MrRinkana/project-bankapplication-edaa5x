@@ -62,7 +62,7 @@ public class Bank {
 	public ArrayList<Customer> findByPartofName(String namePart) {
 		ArrayList<Customer> returnList = new ArrayList<Customer>();
 		for (BankAccount a : accountList) {
-			if (a.getHolder().getName().indexOf(namePart) != -1) {
+			if (a.getHolder().getName().toLowerCase().indexOf(namePart.toLowerCase()) != -1) {
 				returnList.add(a.getHolder());
 			}
 		}
