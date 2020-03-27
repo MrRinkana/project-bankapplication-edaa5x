@@ -2,8 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankApplication {
+	
+	static Bank bank;
+	
 	public static void main(String[] args) {
-		Bank bank = new Bank();
+		bank = new Bank();
 
 		Scanner scan = new Scanner(System.in);
 
@@ -19,35 +22,21 @@ public class BankApplication {
 				printCustomerList(bank.findByPartofName(scan.nextLine()));
 			case "3":
 				System.out.println("konto: ");
-				BankAccount accChoice = bank.findByNumber(scan.nextInt());
-				if (accChoice == null) {
-					System.out.println("Kontonr " + accChoice + "existerar inte");
-					return;
-				}
+				BankAccount account = bank.findByNumber(scan.nextInt());
 				System.out.println("belopp: ");
-				double amount = scan.nextDouble();
-				if (amount < 0) {
-					System.out.println("Kan inte lägga till " + amount + ", felaktigt belopp");
-					return;
-				}
-				accChoice.deposit(amount);
-				System.out.println(accChoice.toString() + ": " + amount);
+				System.out.println(depositAttempt(account, scan.nextDouble()));
 			case "4":
 				System.out.println("konto: ");
-				BankAccount accChoice2 = bank.findByNumber(scan.nextInt());
-				if (accChoice2 == null) {
-					System.out.println("Kontonr " + accChoice2 + "existerar inte");
-					return;
-				}
+				BankAccount accountWithdraw = bank.findByNumber(scan.nextInt());
 				System.out.println("belopp: ");
-				double amount2 = scan.nextDouble();
-				if (amount2 > accChoice2.getAmount()) {
-					System.out.println("Kan inte dra " + amount2 + ", bara " + accChoice2.getAmount() + " på kontot!");
-					return;
-				}
-				accChoice2.withdraw(amount2);
-				System.out.println(accChoice2.toString() + ": " + amount2);
+				System.out.println(withdrawalAttempt(accountWithdraw, scan.nextDouble()));
 			case "5":
+				System.out.println("från konto: ");
+				BankAccount aOut = bank.findByNumber(scan.nextInt());
+				System.out.println("till konto: ");
+				BankAccount aIn = bank.findByNumber(scan.nextInt());
+				System.out.println("belopp: ");
+				System.out.println(transactionAttempt(aOut, aIn, scan.nextDouble()));
 			case "6":
 				System.out.print("Skapa nytt konto:\nNamn:");
 				String name = scan.nextLine();
@@ -97,6 +86,43 @@ public class BankApplication {
 		for (Customer c : customerList) {
 			System.out.print("\n" + c.toString());
 		}
+	}
+	
+	private static String withdrawalAttempt(BankAccount account, double amount) {
+		if (account == null) {
+			return "Kontot existerar inte";
+		}
+		if (amount > account.getAmount()) {
+			return "uttaget misslyckades, endast " + account.getAmount() + " på kontot!";
+		}
+		account.withdraw(amount);
+		return account.toString() + ": " + account.getAmount();
+	}
+	
+	private static String depositAttempt(BankAccount account, double amount) {
+		if (account == null) {
+			return "kontot existerar inte";
+		}
+		if (amount < 0) {
+			return "kan inte sätta in mindre än 0";
+		}
+		account.deposit(amount);
+		return account.toString() + ": " + account.getAmount();
+	}
+	
+	private static String transactionAttempt(BankAccount aOut, BankAccount aIn, double amount) {
+		if (aOut == null || aIn == null) {
+			return "en eller flera av konton existerar inte";
+		}
+		else if (amount < 0) {
+			return "kan inte överföra mindre än 0";
+		}
+		else if (amount > aOut.getAmount()){
+			return "bara " + aOut.getAmount() + " på kontot";
+		}
+		aOut.withdraw(amount);
+		aIn.deposit(amount);
+		return aOut.toString() + ": " + aOut.getAmount() + "\n" + aIn.toString() + ": " + aIn.getAmount();
 	}
 }
 /*
