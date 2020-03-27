@@ -1,42 +1,75 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankApplication {
-	static Scanner scan;
-	
-	static Bank bank;
-	
-	
 	public static void main(String[] args) {
-		bank = new Bank();
-		
-		scan = new Scanner(System.in);
-		
-		optionsPrint();
-		
+		Bank bank = new Bank();
+
+		Scanner scan = new Scanner(System.in);
+
 		while (true) {
-			uiHandler();
+			optionsPrint();
+			String input = scan.nextLine();
+			switch (input) {
+			case "1":
+				System.out.println("id: ");
+				printAccountList(bank.findAccountsForHolder(scan.nextLong()));
+			case "2":
+				System.out.println("namn: ");
+				printCustomerList(bank.findByPartofName(scan.nextLine()));
+			case "3":
+				System.out.println("konto: ");
+				BankAccount accChoice = bank.findByNumber(scan.nextInt());
+				if (accChoice == null) {
+					System.out.println("Kontonr " + accChoice + "existerar inte");
+					return;
+				}
+				System.out.println("belopp: ");
+				double amount = scan.nextDouble();
+				if (amount < 0) {
+					System.out.println("Kan inte lägga till " + amount + ", felaktigt belopp");
+					return;
+				}
+				accChoice.deposit(amount);
+				System.out.println(accChoice.toString() + ": " + amount);
+			case "4":
+				System.out.println("konto: ");
+				BankAccount accChoice2 = bank.findByNumber(scan.nextInt());
+				if (accChoice2 == null) {
+					System.out.println("Kontonr " + accChoice2 + "existerar inte");
+					return;
+				}
+				System.out.println("belopp: ");
+				double amount2 = scan.nextDouble();
+				if (amount2 > accChoice2.getAmount()) {
+					System.out.println("Kan inte dra " + amount2 + ", bara " + accChoice2.getAmount() + " på kontot!");
+					return;
+				}
+				accChoice2.withdraw(amount2);
+				System.out.println(accChoice2.toString() + ": " + amount2);
+			case "5":
+			case "6":
+				System.out.print("Skapa nytt konto:\nNamn:");
+				String name = scan.nextLine();
+				System.out.print("Personnummer:");
+				long id = scan.nextLong();
+				int accountCheck = bank.addAccount(name, id);
+				if (!(accountCheck == 0)) {
+					System.out.print("Konto skapat: " + accountCheck);
+				} else {
+					System.out.print("Inget konto skapat");
+				}
+			case "7":
+				bank.removeAccount(scan.nextInt());
+			case "8":
+				printAccountList(bank.getAllAccounts());
+			case "9":
+				System.exit(0);
+			default:
+			}
+
 		}
-		
-	}
-	
-	private  static void uiHandler() {
-		String input = scan.nextLine();
-		switch (input) {
-		case "1":
-		case "2":
-		case "3":
-		case "4":
-		case "5":
-		case "6": 
-			int acc = createAcc();
-			if (!(acc == 0)) {
-				System.out.print("Konto skapat: " + acc);
-			}else {System.out.print("Inget konto skapat");}
-		case "7":
-		case "8": printAllAcc();
-		case "9":
-		default:
-		}
+
 	}
 	
 	private static void optionsPrint() {
@@ -54,21 +87,17 @@ public class BankApplication {
 				":>");
 	}
 
-	private static int createAcc()	{
-		System.out.print("Skapa nytt konto:\nNamn:");
-		String name = scan.nextLine();
-		System.out.print("Personnummer:");
-		long id = scan.nextLong();
-		return bank.addAccount(name, id);
-		
-	}
-	
-	private static void printAllAcc() {
-		for (BankAccount b : bank.getAllAccounts()) {
+	private static void printAccountList(ArrayList<BankAccount> accountList) {
+		for (BankAccount b : accountList) {
 			System.out.print("\n" + b.toString());
 		}
 	}
 	
+	private static void printCustomerList(ArrayList<Customer> customerList) {
+		for (Customer c : customerList) {
+			System.out.print("\n" + c.toString());
+		}
+	}
 }
 /*
 1. Hitta konton för en viss kontoinnehavare
