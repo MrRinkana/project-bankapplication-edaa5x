@@ -3,7 +3,7 @@ public class BankAccount {
 	private Customer holder;
 	private double cash;
 	private int accNbr;
-	public static int totAccounts = 0;
+	static int totAccounts = 0;
 	
 	public BankAccount(String holderName, long holderId) {
 		this.holder = new Customer(holderName, holderId);
