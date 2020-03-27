@@ -13,7 +13,7 @@ public class Bank {
 		//TODO: söka igenom så att man inte får redundant account
 		BankAccount account = new BankAccount(holderName, idNr);
 		accountList.add(account);
-		return(accountList.indexOf(account) + 1);
+		return(account.getAccountNumber);
 	}
 	
 	public Customer findHolder(long idNr) {
@@ -47,9 +47,43 @@ public class Bank {
 	}
 	
 	
-	boolean removeAccount(int number) {
-		//detta är inkompatibelt med att använda index som kontonummer, måste hitta annan lösning.
-		//Man skulle kunna söka igenom alla saker i listan till man hittar det som ska bort med en sån där halvhalvhalv metod
-		
+	public boolean removeAccount(int number) {
+		for (BankAccount a : accountList) {
+			if (a.getAccountNumber == number) {
+				accountList.remove(a);
+				return true;
+			}
 		}
+		return false;
+		//Man skulle kunna söka igenom alla saker i listan till man hittar det som ska bort med en sån där halvhalvhalv metod	
+	}
+	
+	public ArrayList<BankAccount> getAllAccounts() {
+		return accountList;
+	}
+	
+	public BankAccount findByNumber(int accountNumber) {
+		for (BankAccount a : accountList) {
+			if (a.getAccountNumber) {
+				return a;
+			}
+		}
+		
+	}
+	
+	public ArrayList<BankAccount> findAccountsForHolder(long idNr) {
+		ArrayList<BankAccount> returnList = new ArrayList<BankAccount>();
+		for (BankAccount a : accountList) {
+			if (a.getHolder().getIdNr() == idNr) {
+				returnList.add(a);
+			}
+		}
+		return returnList;
+	}
+	
+	/*
+	public ArrayList<Customer> findByPartofName(String namePart) {
+		
+	}
+	*/
 }
