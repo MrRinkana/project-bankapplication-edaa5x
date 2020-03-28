@@ -6,14 +6,18 @@ public class BankApplication {
 	static Bank bank;
 
 	public static void main(String[] args) {
+		
+		System.out.println("Booting..");
 		bank = new Bank();
-
 		Scanner scan = new Scanner(System.in);
-
+		System.out.print("Booted.");
+		
 		while (true) {
+			
 			optionsPrint();
 			String input = scan.nextLine();
-			switch (input) {
+			
+			switch (input) { //Ligger här för att slippa static scanner..
 			case "1":
 				System.out.print("id: ");
 				printAccountList(bank.findAccountsForHolder(scan.nextLong())); //TODO utskriften är inte nanocertifierad
@@ -26,8 +30,6 @@ public class BankApplication {
 			case "3":
 				System.out.print("konto: ");
 				BankAccount account = bank.findByNumber(scan.nextInt());
-				System.out.println("belopp: ");
-				System.out.println(depositAttempt(account, scan.nextDouble()) + "\n");
 				System.out.print("belopp: ");
 				System.out.print(depositAttempt(account, scan.nextDouble())); //TODO utskriften är inte nanocertifierad
 				scan.nextLine();
@@ -35,8 +37,6 @@ public class BankApplication {
 			case "4":
 				System.out.print("konto: ");
 				BankAccount accountWithdraw = bank.findByNumber(scan.nextInt());
-				System.out.println("belopp: ");
-				System.out.println(withdrawalAttempt(accountWithdraw, scan.nextDouble()) + "\n");
 				System.out.print("belopp: ");
 				System.out.print(withdrawalAttempt(accountWithdraw, scan.nextDouble())); //TODO utskriften är inte nanocertifierad
 				scan.nextLine();
@@ -46,8 +46,6 @@ public class BankApplication {
 				BankAccount aOut = bank.findByNumber(scan.nextInt());
 				System.out.print("till konto: ");
 				BankAccount aIn = bank.findByNumber(scan.nextInt());
-				System.out.println("belopp: ");
-				System.out.println(transactionAttempt(aOut, aIn, scan.nextDouble()) + "\n");
 				System.out.print("belopp: ");
 				System.out.print(transactionAttempt(aOut, aIn, scan.nextDouble()));
 				scan.nextLine();
@@ -59,15 +57,15 @@ public class BankApplication {
 				long id = scan.nextLong();
 				int accountCheck = bank.addAccount(name, id);
 				if (!(accountCheck == 0)) {
-					System.out.print("Konto skapat: " + accountCheck + "\n");
+					System.out.print("Konto skapat: " + accountCheck);
 				} else {
-					System.out.print("Inget konto skapat" + "\n");
+					System.out.print("Inget konto skapat");
 				}
 				scan.nextLine();
 				break;
 			case "7":
 				if(!bank.removeAccount(scan.nextInt())) {
-					System.out.println("kontot existerar inte" + "\n");
+					System.out.print("kontot existerar inte");
 				}
 				else System.out.print("Kontot borttaget.");
 				scan.nextLine();
@@ -92,6 +90,7 @@ public class BankApplication {
 
 	}
 	
+	/** Skriver ut programmets funktioner */
 	private static void optionsPrint() {
 		System.out.print("\n- - - - - - - - - - - - - - - - - -" + 
 				" - - - - - - - - - - - - - - - - - - - - - - - - - -\n" +
@@ -107,10 +106,12 @@ public class BankApplication {
 				":>");
 	}
 
+	/** 
+	 * Skriver ut alla konton den får, eller "hittade inget" 
+	 * om den får en lista utan konton.
+	 * @param accountList
+	 */
 	private static void printAccountList(ArrayList<BankAccount> accountList) {
-		for (BankAccount b : accountList) {
-			System.out.print("\n" + b.toString() + "\n");
-		}
 		if (accountList.size() > 0) {
 			System.out.print("Hittade:");
 			for (BankAccount b : accountList) {
@@ -119,11 +120,13 @@ public class BankApplication {
 		}else System.out.print("Hittade inget.");
 	}
 
+	/** 
+	 * Skriver ut alla kunder den får, eller "hittade ingen" 
+	 * om den får en lista utan några kunder.
+	 * @param customerList
+	 * @return
+	 */
 	private static void printCustomerList(ArrayList<Customer> customerList) {
-		for (Customer c : customerList) {
-			System.out.print("\n" + c.toString() + "\n");
-		}
-
 		if (customerList.size() > 0) {
 			System.out.print("Hittade:");
 			for (Customer c : customerList) {
@@ -132,6 +135,12 @@ public class BankApplication {
 		}else System.out.print("Hittade ingen.");
 	}
 
+	/**
+	 * Tar ut (bort)  amount pengar från account om kontot finns och transaktionen är tillåten. 
+	 * @param account
+	 * @param amount
+	 * @return
+	 */
 	private static String withdrawalAttempt(BankAccount account, double amount) {
 		if (account == null) {
 			return "Kontot existerar inte";
@@ -140,9 +149,15 @@ public class BankApplication {
 			return "uttaget misslyckades, endast " + account.getAmount() + " på kontot!";
 		}
 		account.withdraw(amount);
-		return account.toString() + ": " + account.getAmount();
+		return account.toString();
 	}
 
+	/**
+	 * Sätter in amount pengar på account om kontot finns och transaktionen är tillåten.
+	 * @param account
+	 * @param amount
+	 * @return
+	 */
 	private static String depositAttempt(BankAccount account, double amount) {
 		if (account == null) {
 			return "kontot existerar inte";
@@ -151,30 +166,26 @@ public class BankApplication {
 			return "kan inte sätta in mindre än 0";
 		}
 		account.deposit(amount);
-		return account.toString() + ": " + account.getAmount();
+		return account.toString();
 	}
 
+	/**
+	 * Flyttar amount pengar från aOut till aIn (om de kontona finns) och transaktionen är tillåten.
+	 * @param aOut
+	 * @param aIn
+	 * @param amount
+	 * @return
+	 */
 	private static String transactionAttempt(BankAccount aOut, BankAccount aIn, double amount) {
 		if (aOut == null || aIn == null) {
-			return "en eller flera av konton existerar inte";
+			return "Ett eller flera konton existerar inte";
 		} else if (amount < 0) {
-			return "kan inte överföra mindre än 0";
+			return "Kan inte överföra mindre än 0";
 		} else if (amount > aOut.getAmount()) {
-			return "bara " + aOut.getAmount() + " på kontot";
+			return "Bara " + aOut.getAmount() + " på kontot";
 		}
 		aOut.withdraw(amount);
 		aIn.deposit(amount);
-		return aOut.toString() + ": " + aOut.getAmount() + "\n" + aIn.toString() + ": " + aIn.getAmount();
+		return aOut.toString() + "\n" + aIn.toString();
 	}
 }
-/*
-1. Hitta konton för en viss kontoinnehavare
-2. Sök kontoinnehavare på (del av) namn
-3. Sätta in pengar
-4. Ta ut pengar
-5. Överföring mellan konton
-6. Skapa nytt konto
-7. Ta bort konto
-8. Skriv ut bankens alla konton
-9. Avsluta
-*/
