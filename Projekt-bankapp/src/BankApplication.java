@@ -17,7 +17,7 @@ public class BankApplication {
 			fileHandler.loadFromFile();
 		} catch (IOException e) {
 			System.out.println("Failed to create filehandler, accounts not loaded");
-			e.printStackTrace(); //Kanske strunta i, så programmet kan fortsätta som förut utan att ladda in..
+			e.printStackTrace();
 		}
 		System.out.print("Booted.");
 		
@@ -93,6 +93,8 @@ public class BankApplication {
 						e.printStackTrace();
 					}
 					fileHandler.safeShutdown();
+				}else {
+					System.out.println("FileHandler never started, cannot save to file. Changes lost.");
 				}
 				scan.close(); //Den gnällde...
 				System.out.print("Shut down.");
