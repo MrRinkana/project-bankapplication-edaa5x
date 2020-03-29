@@ -1,0 +1,7 @@
+konto 1 (Doris Kruth, id 4111194444, kundnr 1): 499150.0
+konto 2 (mfp, id 997876, kundnr 2): 333.444
+konto 3 (max, id 123567, kundnr 3): 10000.0
+konto 4 (fjalar, id 456894394933, kundnr 4): 400.0
+konto 5 (hej"); System.out.println("owned", id 666, kundnr 5): 9.9999999E7
+konto 6 (hej2): , kundnr , id  ,,,,)));;;¤\nnyad\\"slutpånamn, id 6969, kundnr 6): 0.0
+konto 7 (Kung Gustav Adolf III, id 179506189999, kundnr 7): 1.0E8
