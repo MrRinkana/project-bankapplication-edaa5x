@@ -73,6 +73,7 @@ public class BankApplication {
 				scan.nextLine();
 				break;
 			case "7":
+				System.out.print("Ange kontonummer till kontot som ska raderas: ");
 				if(!bank.removeAccount(scan.nextInt())) {
 					System.out.print("kontot existerar inte");
 				}
