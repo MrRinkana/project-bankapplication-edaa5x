@@ -11,3 +11,4 @@ konto 10 (c, id 10003, kundnr 10): 0.0
 konto 11 (A, id 20001, kundnr 11): 0.0
 konto 12 (B, id 20002, kundnr 12): 0.0
 konto 13 (C, id 20003, kundnr 13): 0.0
+konto 14 (Merina Peltttoto, id 111111111, kundnr 14): 1000000.0
