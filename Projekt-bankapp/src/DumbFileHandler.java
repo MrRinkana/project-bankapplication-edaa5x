@@ -18,10 +18,10 @@ public class DumbFileHandler {
 		if (!file.exists()) {
 			createFile();
 		}
-		
-		writer = new FileWriter(file);	
+			
 		reader = new Scanner(file); //throws file not found, men inte construktorn? -m
 	}
+	
 	
 	public void safeShutdown() {
 		reader.close();
@@ -32,6 +32,7 @@ public class DumbFileHandler {
 	}
 	
 	public void saveToFile() throws IOException {
+		writer = new FileWriter(file, false); //initieras här pga. fil skrivs över
 		String allAccs = ""; //måste initieras
 		
 		for (BankAccount b : bank.accountList) { //TODO kolla så det funkar
@@ -42,38 +43,38 @@ public class DumbFileHandler {
 		writer.close();
 	}
 	
-	@SuppressWarnings("null")
+	
 	private ArrayList<AccountObject> translateFile() {
-		ArrayList<AccountObject> listOfAccData = null; //TODO Skapa objekt istället?
+		ArrayList<AccountObject> listOfAccData = new ArrayList<AccountObject>(); //TODO Skapa objekt istället?
 		
 		while (reader.hasNextLine()) {
 			String rawStr = reader.nextLine();
 			int i1;
 			i1 = rawStr.indexOf(" (");
-			int bankAccNr = Integer.parseInt(rawStr.substring(5, i1)); //Kanske bara ska läsa det som en sträng
+			int bankAccNr = Integer.parseInt(rawStr.substring(6, i1)); //Kanske bara ska läsa det som en sträng
 			
 			
 			int i2 = i1;
 			while (rawStr.indexOf("): ", i2) > -1) { //TODO optimera
-				i2 = rawStr.indexOf("): ", i2); 
+				i2 = rawStr.indexOf("): ", i2) + 3; 
 			}
 			double money = Double.parseDouble(rawStr.substring(i2));
 			
-			rawStr = rawStr.substring(i1 + 2, i2 - 1); //TODO kolla så jag klipper bort rätt
+			rawStr = rawStr.substring(i1 + 2, i2 - 3); //TODO kolla så jag klipper bort rätt
 			
 			i1 = 0; //Återanvänds för att inte skapa onödiga variabler
 			while (rawStr.indexOf(", kundnr ", i1) > -1) { //TODO optimera
-				i1 = rawStr.indexOf(", kundnr ", i1); 
+				i1 = rawStr.indexOf(", kundnr ", i1) + 9; 
 			}
-			int custNr = Integer.parseInt(rawStr.substring(i1 + 9));
-			rawStr = rawStr.substring(0, i1 - 1);
+			int custNr = Integer.parseInt(rawStr.substring(i1));
+			rawStr = rawStr.substring(0, i1 - 9);
 			
 			i1 = 0; //Återanvänds för att inte skapa onödiga variabler
 			while (rawStr.indexOf(", id ", i1) > -1) { //TODO optimera
-				i1 = rawStr.indexOf(", id ", i1); 
+				i1 = rawStr.indexOf(", id ", i1) + 5; 
 			}
-			long custID = Long.parseLong(rawStr.substring(i1 + 5));
-			rawStr = rawStr.substring(0, i1 - 1);
+			long custID = Long.parseLong(rawStr.substring(i1));
+			rawStr = rawStr.substring(0, i1 - 5);
 			
 			//nu är rawStr = custName
 			listOfAccData.add(new AccountObject(rawStr, custID, custNr, bankAccNr, money));
@@ -81,7 +82,7 @@ public class DumbFileHandler {
 		return listOfAccData;
 	}
 	
-	public void loadFromFile() {
+	public void loadFromFile() throws IOException { //Egen throw, osäker på hur det funkar -m (markerar inget laddat)
 		ArrayList<AccountObject> accList = translateFile();
 		
 		//om inga konton togs bort så bör allt ha samma nummer som förut
@@ -90,11 +91,13 @@ public class DumbFileHandler {
 		//AccountObject innehåller information nog till att kunna återskapa exakt.
 		//int i grejen hade sluppits om man kunde återskapa konto nummren
 		int i = 1;
-		for (AccountObject acc : accList) {
-			bank.addAccount(acc.getName(), acc.getCustID());
-			bank.findByNumber(i).deposit(acc.getBalance());
-			i++;
-		}
+		if (accList.size() > 0) {
+			for (AccountObject acc : accList) {
+				bank.addAccount(acc.getName(), acc.getCustID());
+				bank.findByNumber(i).deposit(acc.getBalance());
+				i++;
+			}
+		}else throw new IOException();
 		
 	}
 }
