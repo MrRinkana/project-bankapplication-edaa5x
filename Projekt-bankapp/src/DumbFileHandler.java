@@ -97,7 +97,7 @@ public class DumbFileHandler {
 				bank.findByNumber(i).deposit(acc.getBalance());
 				i++;
 			}
-		}else throw new IOException();
+		}else throw new IOException(); //TODO utvärdera
 		
 	}
 }
