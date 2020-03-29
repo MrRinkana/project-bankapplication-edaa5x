@@ -5,3 +5,9 @@ konto 4 (fjalar, id 456894394933, kundnr 4): 400.0
 konto 5 (hej"); System.out.println("owned", id 666, kundnr 5): 9.9999999E7
 konto 6 (hej2): , kundnr , id  ,,,,)));;;¤\nnyad\\"slutpånamn, id 6969, kundnr 6): 0.0
 konto 7 (Kung Gustav Adolf III, id 179506189999, kundnr 7): 1.0E8
+konto 8 (a, id 10001, kundnr 8): 0.0
+konto 9 (b, id 10002, kundnr 9): 0.0
+konto 10 (c, id 10003, kundnr 10): 0.0
+konto 11 (A, id 20001, kundnr 11): 0.0
+konto 12 (B, id 20002, kundnr 12): 0.0
+konto 13 (C, id 20003, kundnr 13): 0.0
