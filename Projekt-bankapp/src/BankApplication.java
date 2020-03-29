@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +11,14 @@ public class BankApplication {
 		System.out.println("Booting..");
 		bank = new Bank();
 		Scanner scan = new Scanner(System.in);
+		DumbFileHandler fileHandler = null;
+		try {
+			fileHandler = new DumbFileHandler(bank);
+			fileHandler.loadFromFile();
+		} catch (IOException e) {
+			System.out.println("Failed to create filehandler, accounts not loaded");
+			e.printStackTrace(); //Kanske strunta i, så programmet kan fortsätta som förut utan att ladda in..
+		}
 		System.out.print("Booted.");
 		
 		while (true) {
@@ -76,7 +85,15 @@ public class BankApplication {
 				break;
 			case "9":
 				System.out.println("Shutting down..");
-				//TODO spara till fil (om inte sparas under programmets gång
+				if (!(fileHandler == null)) {
+					try {
+						fileHandler.saveToFile();
+					} catch (IOException e) {
+						System.out.println("Failed saving to file. Changes since load lost.");
+						e.printStackTrace();
+					}
+					fileHandler.safeShutdown();
+				}
 				scan.close(); //Den gnällde...
 				System.out.print("Shut down.");
 				System.exit(0);
@@ -188,4 +205,8 @@ public class BankApplication {
 		aIn.deposit(amount);
 		return aOut.toString() + "\n" + aIn.toString();
 	}
+	
+	
+	
+	
 }
