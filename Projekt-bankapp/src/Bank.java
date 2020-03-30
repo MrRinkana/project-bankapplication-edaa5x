@@ -124,7 +124,7 @@ public class Bank {
 	public ArrayList<Customer> findByPartofName(String namePart) { //TODO söka igenom så att man inte får dubbla resultat
 		ArrayList<Customer> returnList = new ArrayList<Customer>();
 		for (BankAccount a : accountList) {
-			if (a.getHolder().getName().toLowerCase().indexOf(namePart.toLowerCase()) != -1) {
+			if (a.getHolder().getName().toLowerCase().indexOf(namePart.toLowerCase()) != -1 && !(returnList.contains(a.getHolder()))) {
 				returnList.add(a.getHolder());
 			}
 		}
