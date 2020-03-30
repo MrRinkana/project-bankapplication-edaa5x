@@ -8,7 +8,7 @@ public class BankApplication {
 
 	public static void main(String[] args) {
 		
-		System.out.println("Booting..");
+		System.out.println("Startar...");
 		bank = new Bank();
 		Scanner scan = new Scanner(System.in);
 		DumbFileHandler fileHandler = null;
@@ -16,10 +16,10 @@ public class BankApplication {
 			fileHandler = new DumbFileHandler(bank);
 			fileHandler.loadFromFile();
 		} catch (IOException e) {
-			System.out.println("Failed to create filehandler, accounts not loaded");
+			System.out.println("Misslyckades att skapa filehandler, konton laddades inte");
 			e.printStackTrace();
 		}
-		System.out.print("Booted.");
+		System.out.print("Startade");
 		
 		while (true) {
 			
@@ -29,7 +29,7 @@ public class BankApplication {
 			switch (input) { //Ligger här för att slippa static scanner..
 			case "1":
 				System.out.print("id: ");
-				printAccountList(bank.findAccountsForHolder(scan.nextLong())); //TODO utskriften är inte nanocertifierad
+				printAccountList(bank.findAccountsForHolder(scan.nextLong()));
 				scan.nextLine();
 				break;
 			case "2":
@@ -40,14 +40,14 @@ public class BankApplication {
 				System.out.print("konto: ");
 				BankAccount account = bank.findByNumber(scan.nextInt());
 				System.out.print("belopp: ");
-				System.out.print(depositAttempt(account, scan.nextDouble())); //TODO utskriften är inte nanocertifierad
+				System.out.print(depositAttempt(account, scan.nextDouble()));
 				scan.nextLine();
 				break;
 			case "4":
 				System.out.print("konto: ");
 				BankAccount accountWithdraw = bank.findByNumber(scan.nextInt());
 				System.out.print("belopp: ");
-				System.out.print(withdrawalAttempt(accountWithdraw, scan.nextDouble())); //TODO utskriften är inte nanocertifierad
+				System.out.print(withdrawalAttempt(accountWithdraw, scan.nextDouble()));
 				scan.nextLine();
 				break;
 			case "5":
@@ -77,7 +77,7 @@ public class BankApplication {
 				if(!bank.removeAccount(scan.nextInt())) {
 					System.out.print("kontot existerar inte");
 				}
-				else System.out.print("Kontot borttaget.");
+				else System.out.print("Kontot borttaget");
 				scan.nextLine();
 				break;
 			case "8":
@@ -85,24 +85,24 @@ public class BankApplication {
 				//scan.nextLine(); //Ska tydligen inte vara här?
 				break;
 			case "9":
-				System.out.println("Shutting down..");
+				System.out.println("Stänger ner...");
 				if (!(fileHandler == null)) {
 					try {
 						fileHandler.saveToFile();
 					} catch (IOException e) {
-						System.out.println("Failed saving to file. Changes since load lost.");
+						System.out.println("Failed saving to file. Changes since load lost");
 						e.printStackTrace();
 					}
 					fileHandler.safeShutdown();
 				}else {
-					System.out.println("FileHandler never started, cannot save to file. Changes lost.");
+					System.out.println("FileHandler startade inte, kan inte spara till fil. Ändringar har inte sparats");
 				}
 				scan.close(); //Den gnällde...
-				System.out.print("Shut down.");
+				System.out.print("Stängd");
 				System.exit(0);
 				break;
 			default: 
-				System.out.print("Felaktig input, försök igen.");
+				System.out.print("Felaktig input, försök igen");
 			} 
 
 
@@ -137,7 +137,7 @@ public class BankApplication {
 			for (BankAccount b : accountList) {
 				System.out.print("\n" + b.toString());
 			}
-		}else System.out.print("Hittade inget.");
+		}else System.out.print("Hittade inget");
 	}
 
 	/** 
@@ -152,7 +152,7 @@ public class BankApplication {
 			for (Customer c : customerList) {
 				System.out.print("\n" + c.toString());
 			}
-		}else System.out.print("Hittade ingen.");
+		}else System.out.print("Hittade ingen");
 	}
 
 	/**
