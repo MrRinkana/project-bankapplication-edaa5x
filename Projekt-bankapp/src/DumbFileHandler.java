@@ -9,11 +9,11 @@ public class DumbFileHandler {
 	Bank bank;
 	File file;
 	FileWriter writer;
-	Scanner reader; //Var okej enl. Patrik
+	Scanner reader; //Var okej enl. föreläsare
 	
 	public DumbFileHandler(Bank bank) throws IOException {
 		this.bank = bank;
-		file = new File("accounts.txt");
+		file = new File("GIGAaccounts.txt");
 		
 		if (!file.exists()) {
 			createFile();
@@ -51,7 +51,7 @@ public class DumbFileHandler {
 			String rawStr = reader.nextLine();
 			int i1;
 			i1 = rawStr.indexOf(" (");
-			int bankAccNr = Integer.parseInt(rawStr.substring(6, i1)); //Kanske bara ska läsa det som en sträng
+			int bankAccNr = Integer.parseInt(rawStr.substring(6, i1));
 			
 			
 			int i2 = i1;
@@ -60,7 +60,7 @@ public class DumbFileHandler {
 			}
 			double money = Double.parseDouble(rawStr.substring(i2));
 			
-			rawStr = rawStr.substring(i1 + 2, i2 - 3); //TODO kolla så jag klipper bort rätt
+			rawStr = rawStr.substring(i1 + 2, i2 - 3);
 			
 			i1 = 0; //Återanvänds för att inte skapa onödiga variabler
 			while (rawStr.indexOf(", kundnr ", i1) > -1) { //TODO optimera
@@ -102,7 +102,7 @@ public class DumbFileHandler {
 	}
 }
 
-//Hhjälpklass, för att slippa konvertera fram och tillbaka i String[]s..
+//Hjälpklass, för att slippa konvertera fram och tillbaka i String[]s..
 class AccountObject { //är denna "protected" nu eller? -m
 	private String name;
 	private long custID;
