@@ -70,7 +70,7 @@ public class Bank {
 		while (unsorted.size() > 0) {
 			int index = 0;
 			for (int i = 0; i < unsorted.size()-1; i++) {
-				int diff = unsorted.get(i).getHolder().getName().compareToIgnoreCase(unsorted.get(i+1).getHolder().getName());
+				int diff = unsorted.get(index).getHolder().getName().compareToIgnoreCase(unsorted.get(i+1).getHolder().getName());
 				if (diff > 0) {
 					index = i+1;
 				}else if (diff == 0) {
