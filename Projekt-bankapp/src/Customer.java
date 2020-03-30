@@ -18,24 +18,6 @@ public class Customer {
 		totalCustomers++;
 		this.custNbr = totalCustomers;
 	}
-
-	
-	//Denna ska nog bort, att customers skulle ligga i bank istället för bankaccount bryter
-	//nog mot implementationskraven. Dock så finns inte stöd för att behålla kundnummer isf.
-	//att diskutera vidare -m
-	/**
-	 * Laddar in en befintlig användare. (för framtida inläsning från fil tänkte jag)
-	 * Alla befintliga användare MÅSTE läsas in innan nya skapas.
-	 */
-	public Customer(String name, long idNr, int custNbr) {
-		this.name = name;
-		this.idNr = idNr;
-		this.custNbr = custNbr;
-		
-		//återuppbygg totalCustomers efter inläsning från fil
-		//antar att alla konton läses in innan nya skapas, annars risk för dubbla custNbr
-		if (custNbr > totalCustomers) totalCustomers = custNbr;
-	}
 	
 	/** Tar reda på kundens namn (ingen formattering). */
 	public String getName() {
