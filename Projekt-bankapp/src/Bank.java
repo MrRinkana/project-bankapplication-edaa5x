@@ -121,7 +121,7 @@ public class Bank {
 	* flera gånger i resultatet. Sökningen är "case insensitive", det vill
 	* säga gör ingen skillnad på stora och små bokstäver.
 	*/
-	public ArrayList<Customer> findByPartofName(String namePart) { //TODO söka igenom så att man inte får dubbla resultat
+	public ArrayList<Customer> findByPartofName(String namePart) {
 		ArrayList<Customer> returnList = new ArrayList<Customer>();
 		for (BankAccount a : accountList) {
 			if (a.getHolder().getName().toLowerCase().indexOf(namePart.toLowerCase()) != -1 && !(returnList.contains(a.getHolder()))) {
