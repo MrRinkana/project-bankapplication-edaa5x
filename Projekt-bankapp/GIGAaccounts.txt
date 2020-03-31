@@ -4877,3 +4877,4 @@ konto 4876 (Karin Efternamn3774, id 199002012384, kundnr 4876): 215024.0
 konto 4877 (Anna Efternamn1375, id 198404122387, kundnr 4877): 215028.0
 konto 4878 (Marja Efternamn2505, id 198407172389, kundnr 4878): 324024.0
 konto 4879 (Karl Herman Efternamn1398, id 198409102392, kundnr 4879): 215025.0
+konto 4880 (max, id 123567, kundnr 3): 0.0
